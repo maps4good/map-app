@@ -1,0 +1,33 @@
+Google Map Api
+https://developers.google.com/maps/documentation/javascript/get-api-key
+
+
+Open-source Map APIs:
+Leaflet.js: Lightweight JavaScript library for interactive maps.
+OpenLayers: Advanced mapping library.
+
+
+OpenStreetMap: Free map data.
+Mapbox: Customizable maps with a free tier.
+
+
+Free, Simple REST API for
+Live News & Blog Articles
+https://mediastack.com/
+
+
+Global database of events and locations.
+https://www.gdeltproject.org/
+
+
+Aggregates news from various sources, with query parameters for location or keywords.
+https://newsapi.org/
+
+
+(OpenStreetMap-based) for reverse geocoding.
+https://nominatim.org/
+
+APIs to Explore
+Google Maps API (free tier for geocoding and location services).
+HERE Maps API (alternative to Google).
+Social Media APIs (optional): Twitter/X, Reddit APIs for local news.
