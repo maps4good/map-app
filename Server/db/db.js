@@ -1,38 +1,69 @@
 require('dotenv').config();
-// console.log("Loaded Environment Variables:");
-// console.log("DB Name:", process.env.DB_NAME);
-// console.log("DB Server:", process.env.DB_SERVER);
-// console.log("DB User:", process.env.DB_USER);
-// console.log("DB Password:", process.env.DB_PASSWORD ? "******" : "Not Set");
-const sql = require('mssql');
+const db = require('msnodesqlv8');
 
-const config = {
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  server: process.env.DB_SERVER,
-  database: process.env.DB_NAME,
-  options: {
-    encrypt: false, // Set to true if using Azure MSSQL
-    trustServerCertificate: true
-  }
-};
-// console.log('Database configuration:', config.database);
+const connectionString = `Server=${process.env.DB_SERVER};Database=${process.env.DB_NAME};Trusted_Connection=yes;Driver={ODBC Driver 17 for SQL Server}`;
+
 class Database {
   constructor() {
-    this.pool = null;
+    this.connectionString = connectionString;
+    this.pool = null; 
   }
 
   async connect() {
-    if (!this.pool) {
-      try {
-        this.pool = await sql.connect(config);
-        console.log('Database connected successfully');
-      } catch (error) {
-        console.error('Database connection failed:', error);
-        throw error;
-      }
+    try {
+      console.log(`Attempting connection to ${process.env.DB_SERVER}/${process.env.DB_NAME}`);
+      console.log(await this.execute('SELECT 1 AS connected'));
+      return this; // return instance of db class
+    } catch (error) {
+      console.error('Database connection failed:', error);
+      throw error;
     }
-    return this.pool;
+  }
+
+  // Fixed spelling: excuteQuery -> executeQuery
+  async executeQuery(sqlQuery, params = []) {
+    return new Promise((resolve, reject) => {
+      db.query(this.connectionString, sqlQuery, params, (err, rows) => {
+        if (err) {
+          console.error('Query failed:', err);
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      });
+    });
+  }
+
+  // Add alias for backward compatibility
+  async query(sqlQuery, params = []) {
+    return this.executeQuery(sqlQuery, params);
+  }
+
+  async execute(sqlStatement, params = []) {
+    return this.executeQuery(sqlStatement, params);
+  }
+
+  async queryNamed(sql, params = {}) {
+    const paramArray = [];
+    const modifiedSql = sql.replace(/@(\w+)/g, (match, paramName) => {
+      if (params[paramName] !== undefined) {
+        paramArray.push(params[paramName]);
+        return '?';
+      }
+      return match;
+    });
+    
+    return await this.executeQuery(modifiedSql, paramArray);
+  }
+
+  async request() {
+    return {
+      query: async (sql, params = {}) => {
+        const result = await this.queryNamed(sql, params);
+        return { recordset: result };
+      },
+      input: function() { return this; } // For chainability
+    };
   }
 }
 

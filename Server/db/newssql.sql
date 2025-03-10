@@ -126,3 +126,5 @@ VALUES
 (6, 7); -- Melbourne Wildfires (Weather)
 
 -- we should think about Indexing most used columns for easier access.
+
+
