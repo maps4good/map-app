@@ -2,14 +2,16 @@ const { GraphQLObjectType, GraphQLSchema, GraphQLList, GraphQLNonNull, GraphQLIn
 const NewsType = require('../Types/newsType.js');
 const LocationType = require('../Types/locationType.js');
 const CategoryType = require('../Types/categoryType.js');
-const resolvers = require('../Resolvers/resolvers.js');
+const resolvers = require('../Resolvers/resolvers.js'); // this is combining all the resolvers into one object
 
 // Define Root Query
 const RootQuery = new GraphQLObjectType({
+  // this is the contract between the client and the server
   name: 'RootQueryType',
   fields: {
     // News queries
     news: {
+      //defining a list of type newsType
       type: new GraphQLList(NewsType),
       args: {
         location_id: { type: GraphQLID },
@@ -18,13 +20,14 @@ const RootQuery = new GraphQLObjectType({
         limit: { type: GraphQLInt },
         offset: { type: GraphQLInt },
       },
+      //calling resolvers.Query.news function in the newsResolver.js file which calls news service for farther action.
       resolve: resolvers.Query.news
     },
     //newsById(id: Int!): News
     newsById: {
       type: NewsType,
       args: {
-        id: { type: GraphQLID }
+        id: { type: GraphQLID } // graphql ID type
       },
       resolve: resolvers.Query.newsById
     },

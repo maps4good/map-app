@@ -16,7 +16,6 @@ async function startServer() {
     await Database.connect();
   } catch (error) {
     console.error('Failed to connect to database:', error);
-    // You might want to decide whether to continue starting the server or not
   }
 
   const app = express();
@@ -24,7 +23,7 @@ async function startServer() {
 
   // Create Apollo Server instance
   const server = new ApolloServer({
-    schema,
+    schema, // this is where the UI defined request goes to
     introspection: true,
   });
 
@@ -32,7 +31,7 @@ async function startServer() {
   await server.start();
 
   // Middleware
-  app.use(cors());
+  app.use(cors());// need setup
   app.use(express.json());
   
   // Apply Apollo middleware to a specific path

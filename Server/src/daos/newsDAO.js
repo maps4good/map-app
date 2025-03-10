@@ -9,6 +9,10 @@ class NewsDAO {
   }
 
   // Fetch news with filters
+  // Pagination for web/mobile UIs
+  // "Load More" functionality
+  // Infinite scrolling
+  // Performance optimization (avoiding loading all data at once)
   async getNews({ location_id, category_id, limit = 10, offset = 0 }) {
     try {
       let query = `
@@ -81,6 +85,9 @@ class NewsDAO {
     }
   }
   
+
+
+
   // Get a single news item by ID
   async getNewsById(id) {
     try {

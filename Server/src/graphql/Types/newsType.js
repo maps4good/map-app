@@ -1,3 +1,5 @@
+// Note: the types are written in JS following Code First approach
+// there is a graphql specific way of defining TypeDefs using SDL approach that you might find online.
 const { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLID, GraphQLList } = require('graphql');
 
 const NewsType = new GraphQLObjectType({

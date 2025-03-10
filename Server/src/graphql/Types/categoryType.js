@@ -1,3 +1,4 @@
+
 const { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLID } = require('graphql');
 
 const CategoryType = new GraphQLObjectType({
