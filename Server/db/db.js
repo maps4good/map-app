@@ -43,6 +43,7 @@ class Database {
     return this.executeQuery(sqlStatement, params);
   }
 
+  // helper method to replace named parameters with positional parameters
   async queryNamed(sql, params = {}) {
     const paramArray = [];
     const modifiedSql = sql.replace(/@(\w+)/g, (match, paramName) => {

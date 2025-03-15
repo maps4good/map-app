@@ -7,5 +7,4 @@ const categoryResolvers = {
     }
   }
 };
-console.log("using catResolvers.js");
 module.exports = categoryResolvers;

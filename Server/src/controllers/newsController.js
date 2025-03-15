@@ -37,38 +37,6 @@ class NewsController {
     }
   }
 
-  // The MOST IMPORTANT endpoint for your use case
-  async importNews(req, res) {
-    try {
-      if (!req.body.articles || !Array.isArray(req.body.articles)) {
-        return res.status(400).json({ error: 'Request body must contain an articles array' });
-      }
-
-      const results = {
-        total: req.body.articles.length,
-        imported: 0,
-        failed: 0,
-        errors: []
-      };
-
-      for (const article of req.body.articles) {
-        try {
-          await NewsService.createNews(article);
-          results.imported++;
-        } catch (error) {
-          results.failed++;
-          results.errors.push({
-            article: article.title || 'Unknown',
-            error: error.message
-          });
-        }
-      }
-
-      res.status(200).json(results);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  }
 }
 
 module.exports = new NewsController();

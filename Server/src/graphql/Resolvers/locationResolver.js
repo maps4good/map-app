@@ -11,5 +11,4 @@ const locationResolvers = {
     }
   }
 };
-console.log("using locationResolvers.js");
 module.exports = locationResolvers;

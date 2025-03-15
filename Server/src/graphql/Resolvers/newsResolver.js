@@ -24,6 +24,5 @@ const newsResolvers = {
     },
   }
 };
-console.log("using newsResolvers.js");
 
 module.exports = newsResolvers;

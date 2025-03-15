@@ -11,6 +11,4 @@ const resolvers = {
     ...categoryResolver.Query
   }
 };
-console.log("using resolvers.js");
-
 module.exports = resolvers;

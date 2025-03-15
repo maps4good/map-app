@@ -9,9 +9,6 @@ router.post('/news', newsController.createNews.bind(newsController));
 router.put('/news/:id', newsController.updateNews.bind(newsController));
 router.delete('/news/:id', newsController.deleteNews.bind(newsController));
 
-// Data ingestion route - main focus
-router.post('/news/import', newsController.importNews.bind(newsController));
-
 // Admin dashboard
 router.get('/admin/stats', systemController.getSystemStats.bind(systemController));
 

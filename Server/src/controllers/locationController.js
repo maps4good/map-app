@@ -6,7 +6,7 @@ const LocationService = require('../services/locationService');
 class LocationController {
   /**
    * Get all locations
-   * @route GET /api/admin/locations
+   * @route GET /api/locations
    */
   async getLocations(req, res) {
     try {
