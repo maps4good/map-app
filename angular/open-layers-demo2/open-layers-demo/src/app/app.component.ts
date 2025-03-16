@@ -13,14 +13,16 @@ import Point from 'ol/geom/Point';
 import { MapComponent } from './components/map/map.component';
 import { MousePositionComponent } from './components/mouse-position/mouse-position.component';
 import { ScalelineComponent } from './components/scaleline/scaleline.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
+import { CoordinateFormatterService } from './services/coordinate-formatter.service';
 
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   standalone: true,
-  imports: [MapComponent, ScalelineComponent],
+  imports: [MapComponent, ScalelineComponent, MousePositionComponent, CommonModule],
+  providers: [CoordinateFormatterService, DecimalPipe],
 })
 export class AppComponent implements OnInit {
   name = 'Angular ' + VERSION.major;
@@ -29,7 +31,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.map = new Map({
       view: new View({
-        center: fromLonLat([10, 53.55]),
+        center: fromLonLat([-82.983330, 39.983334]),
         zoom: 12,
       }),
       layers: [
@@ -54,8 +56,8 @@ export class AppComponent implements OnInit {
 
   createMarkers() {
     const iconFeature = new Feature({
-      geometry: new Point(fromLonLat([10, 53.55])),
-      name: 'Null Island',
+      geometry: new Point(fromLonLat([-82.983330, 39.983334])),
+      name: 'Columbus, Ohio',
       population: 4000,
       rainfall: 500,
     });

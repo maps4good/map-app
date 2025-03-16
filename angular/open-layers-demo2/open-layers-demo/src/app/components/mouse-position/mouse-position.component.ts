@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
   styles: [],
   standalone: true,
   imports: [CommonModule],
+  providers: [CoordinateFormatterService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MousePositionComponent implements OnInit {
